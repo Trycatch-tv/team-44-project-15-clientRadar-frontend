@@ -2,7 +2,9 @@ import React from 'react'
 
 const App = () => {
   return (
-    <div>App</div>
+    <React.Fragment>
+        <h1>App</h1>
+    </React.Fragment>
   )
 }
 
