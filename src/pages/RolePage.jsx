@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useFormik } from "formik";
-import moment from "moment";
 
 import InputSwitch from "../components/forms/InputSwitch";
 import InputText from "../components/forms/InputText";
 
 import roleFormValidation from "../validations/role.validation";
+import { tableHeadersRole } from "../configuration/tables";
 import axiosClient from "../configuration/axiosClient";
 import modulesData from "../data/modules.data";
 import CardForm from "../components/CardForm";
+import Table from "../components/Table";
 
 const RolePage = () => {
+  const [headers] = useState(tableHeadersRole);
   const [rows, setRows] = useState([]);
   useEffect(() => getData, []);
 
@@ -22,13 +24,20 @@ const RolePage = () => {
       .catch(console.error);
   };
 
-  const { values, handleChange, handleBlur, touched, errors, handleSubmit, handleReset } =
-    useFormik({
-      ...roleFormValidation,
-      onSubmit: (values) => {
-        console.log(values);
-      },
-    });
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    touched,
+    errors,
+    handleSubmit,
+    handleReset,
+  } = useFormik({
+    ...roleFormValidation,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
 
   return (
     <React.Fragment>
@@ -37,7 +46,11 @@ const RolePage = () => {
       </Helmet>
       <div className="row">
         <div className="col-md-5">
-          <CardForm title="Formulario Role" onSubmit={handleSubmit} onReset={handleReset}>
+          <CardForm
+            title="Formulario Role"
+            onSubmit={handleSubmit}
+            onReset={handleReset}
+          >
             <InputText
               label="Nombre"
               id="name"
@@ -118,32 +131,7 @@ const RolePage = () => {
         </div>
 
         <div className="col-md-7">
-          <div className="table-responsive">
-            <table className="table table-hover text-center table-bordered align-middle">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Descripcion</th>
-                  <th>Fecha de creación</th>
-                  <th>opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr key={row.id}>
-                    <td>{row.name}</td>
-                    <td>{row.description}</td>
-                    <td>{moment(row.created_at).fromNow()}</td>
-                    <td>
-                      <button type="button" className="btn btn-primary">
-                        Seleccionar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <Table headers={headers} rows={rows} options={true} />
         </div>
       </div>
     </React.Fragment>
