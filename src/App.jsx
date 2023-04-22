@@ -9,7 +9,7 @@ import RolePage from "./pages/RolePage";
 const App = () => {
   return (
     <React.Fragment>
-      <BrowserRouter>
+      <BrowserRouter basename="/team-44-project-15-clientRadar-frontend">
         <Routes>
           <Route path="/app" element={<AppLayout />}>
             <Route index element={<Navigate to="/app/role" />} />
