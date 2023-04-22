@@ -1,7 +1,7 @@
 import moment from "moment";
 import React from "react";
 
-const Table = ({ headers, rows, options }) => {
+const Table = ({ headers, rows, options, onOption }) => {
   return (
     <React.Fragment>
       <div className="table-responsive">
@@ -26,7 +26,11 @@ const Table = ({ headers, rows, options }) => {
                 ))}
                 {options ? (
                   <td>
-                    <button type="button" className="btn btn-primary">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => onOption(row)}
+                    >
                       Seleccionar
                     </button>
                   </td>

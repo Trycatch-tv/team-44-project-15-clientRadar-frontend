@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CardForm = ({ title, onSubmit, children, onReset }) => {
+const CardForm = ({ title, onSubmit, children, onClean }) => {
   return (
     <div className="card">
       <h2 className="card-header">{title}</h2>
@@ -20,7 +20,7 @@ const CardForm = ({ title, onSubmit, children, onReset }) => {
         <div className="mb-3">
           <button
             type="button"
-            onClick={onReset}
+            onClick={onClean}
             className="btn btn-warning"
             style={{ width: "100%" }}
           >
@@ -35,7 +35,7 @@ const CardForm = ({ title, onSubmit, children, onReset }) => {
 CardForm.propTypes = {
   title: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onReset: PropTypes.func.isRequired,
+  onClean: PropTypes.func.isRequired,
   children: PropTypes.any,
 };
 

@@ -13,9 +13,16 @@ import CardForm from "../components/CardForm";
 import Table from "../components/Table";
 
 const RolePage = () => {
+  const [selected, setSelected] = useState(null);
   const [headers] = useState(tableHeadersRole);
   const [rows, setRows] = useState([]);
   useEffect(() => getData, []);
+
+  useEffect(() => {
+    if (selected) {
+      Object.keys(selected).map((i) => setFieldValue(i, selected[i]));
+    }
+  }, [selected]);
 
   const getData = () => {
     axiosClient
@@ -32,12 +39,20 @@ const RolePage = () => {
     errors,
     handleSubmit,
     handleReset,
+    setFieldValue,
   } = useFormik({
     ...roleFormValidation,
     onSubmit: (values) => {
       console.log(values);
     },
   });
+
+  const handleSelect = (item) => setSelected(item);
+
+  const handleClean = () => {
+    setSelected(null);
+    handleReset();
+  };
 
   return (
     <React.Fragment>
@@ -49,7 +64,7 @@ const RolePage = () => {
           <CardForm
             title="Formulario Role"
             onSubmit={handleSubmit}
-            onReset={handleReset}
+            onClean={handleClean}
           >
             <InputText
               label="Nombre"
@@ -131,7 +146,12 @@ const RolePage = () => {
         </div>
 
         <div className="col-md-7">
-          <Table headers={headers} rows={rows} options={true} />
+          <Table
+            headers={headers}
+            rows={rows}
+            options={true}
+            onOption={handleSelect}
+          />
         </div>
       </div>
     </React.Fragment>
