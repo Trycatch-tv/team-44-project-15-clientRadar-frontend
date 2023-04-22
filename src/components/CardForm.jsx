@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CardForm = ({ title, onSubmit, children, onClean }) => {
+const CardForm = ({ title, onSubmit, children, onClean, selected }) => {
   return (
     <div className="card">
       <h2 className="card-header">{title}</h2>
@@ -14,7 +14,7 @@ const CardForm = ({ title, onSubmit, children, onClean }) => {
             className="btn btn-primary"
             style={{ width: "100%" }}
           >
-            Agregar
+            {!!selected ? "Actualizar" : "Agregar"}
           </button>
         </div>
         <div className="mb-3">
@@ -27,6 +27,18 @@ const CardForm = ({ title, onSubmit, children, onClean }) => {
             Limpiar
           </button>
         </div>
+        {!!selected ? (
+          <div className="mb-3">
+            <button
+              type="button"
+              onClick={onClean}
+              className="btn btn-danger"
+              style={{ width: "100%" }}
+            >
+              Eliminar
+            </button>
+          </div>
+        ) : null}
       </form>
     </div>
   );

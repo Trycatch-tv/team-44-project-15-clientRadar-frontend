@@ -65,6 +65,7 @@ const RolePage = () => {
             title="Formulario Role"
             onSubmit={handleSubmit}
             onClean={handleClean}
+            selected={selected}
           >
             <InputText
               label="Nombre"
