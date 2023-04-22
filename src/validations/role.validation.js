@@ -30,7 +30,6 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-  id: Yup.number(),
   name: Yup.string().required(),
   description: Yup.string(),
   role_create: Yup.boolean(),

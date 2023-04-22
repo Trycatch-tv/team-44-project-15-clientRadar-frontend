@@ -97,7 +97,7 @@ const RolePage = () => {
                         touched={touched}
                       />
                     </div>
-                    {m != "sale" && m != "purchase" ? (
+                    {m != "sell" && m != "purchase" ? (
                       <React.Fragment>
                         <div className="col-6">
                           <InputSwitch

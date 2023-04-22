@@ -1,3 +1,3 @@
-const modulesData = ["role", "user", "category", "product", "customer", "sale"];
+const modulesData = ["role", "user", "category", "product", "customer", "sell"];
 
 export default modulesData
