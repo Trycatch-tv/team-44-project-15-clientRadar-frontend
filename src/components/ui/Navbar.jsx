@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
+  const { auth, user, role } = useContext(AuthContext);
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -23,109 +25,127 @@ const Navbar = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarMain">
-            <>
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                {/* MODULE USER */}
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Users
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/app/role">
-                        roles
-                      </Link>
+            {auth ? (
+              <>
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  {/* MODULE USER */}
+                  {role?.user_view || role?.role_view ? (
+                    <li className="nav-item dropdown">
+                      <a
+                        className="nav-link dropdown-toggle"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Users
+                      </a>
+                      <ul className="dropdown-menu">
+                        {role.role_view ? (
+                          <li>
+                            <Link className="dropdown-item" to="/app/role">
+                              roles
+                            </Link>
+                          </li>
+                        ) : null}
+                        {role?.user_view ? (
+                          <li>
+                            <Link className="dropdown-item" to="/app/user">
+                              user
+                            </Link>
+                          </li>
+                        ) : null}
+                      </ul>
                     </li>
+                  ) : null}
 
-                    <li>
-                      <Link className="dropdown-item" to="/app/user">
-                        user
-                      </Link>
+                  {/* MODULE WAREHOUSE */}
+                  {role?.category_view || role?.product ? (
+                    <li className="nav-item dropdown">
+                      <a
+                        className="nav-link dropdown-toggle"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Almacen
+                      </a>
+                      <ul className="dropdown-menu">
+                        {role?.category_view ? (
+                          <li>
+                            <Link className="dropdown-item" to="/app/category">
+                              category
+                            </Link>
+                          </li>
+                        ) : null}
+                        {role?.product_view ? (
+                          <li>
+                            <Link className="dropdown-item" to="/app/product">
+                              product
+                            </Link>
+                          </li>
+                        ) : null}
+                      </ul>
                     </li>
-                  </ul>
-                </li>
+                  ) : null}
 
-                {/* MODULE WAREHOUSE */}
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Almacen
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/app/category">
-                        category
-                      </Link>
-                    </li>
+                  {/* MODULE SHOP */}
+                  {role?.customer_view || role?.sell_view ? (
+                    <li className="nav-item dropdown">
+                      <a
+                        className="nav-link dropdown-toggle"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Tienda
+                      </a>
+                      <ul className="dropdown-menu">
+                        {role?.customer_view ? (
+                          <li>
+                            <Link className="dropdown-item" to="/app/customer">
+                              clientes
+                            </Link>
+                          </li>
+                        ) : null}
 
-                    <li>
-                      <Link className="dropdown-item" to="/app/product">
-                        product
-                      </Link>
+                        {role?.sell_view ? (
+                          <li>
+                            <Link className="dropdown-item" to="/app/order">
+                              ventas
+                            </Link>
+                          </li>
+                        ) : null}
+                      </ul>
                     </li>
-                  </ul>
-                </li>
+                  ) : null}
+                </ul>
 
-                {/* MODULE SHOP */}
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Tienda
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/app/customer">
-                        clientes
-                      </Link>
-                    </li>
+                {/* ACCOUNT */}
+                <span className="navbar-text">
+                  <div className="dropdown">
+                    <button
+                      className="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {user?.email}
+                    </button>
 
-                    <li>
-                      <Link className="dropdown-item" to="/app/order">
-                        ventas
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-
-              {/* ACCOUNT */}
-              <span className="navbar-text">
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Correo electronico
-                  </button>
-
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/app/profile">
-                        perfil
-                      </Link>
-                    </li>
-                    <li>
-                      <span className="dropdown-item">salir</span>
-                    </li>
-                  </ul>
-                </div>
-              </span>
-            </>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <Link className="dropdown-item" to="/app/profile">
+                          perfil
+                        </Link>
+                      </li>
+                      <li>
+                        <span className="dropdown-item">salir</span>
+                      </li>
+                    </ul>
+                  </div>
+                </span>
+              </>
+            ) : null}
           </div>
         </div>
       </nav>
