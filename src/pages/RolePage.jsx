@@ -81,45 +81,69 @@ const RolePage = () => {
   };
 
   const handleUpdate = (payload) => {
-    axiosClient
-      .put(`/role/${selected?.id}`, payload)
-      .then(() => {
-        Swal.fire({
-          title: "Registro actualizado correctamente",
-          icon: "success",
-        }).then(() => {
-          getData();
-          handleClean();
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          title: "Registro no actualizado",
-          icon: "error",
-        });
-      });
+    Swal.fire({
+      title: "Seguro que quiere actualizar el resgistro?",
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      cancelButtonColor: "#dc3545",
+      confirmButtonText: "Si",
+      confirmButtonColor: "#28a745",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        axiosClient
+          .put(`/role/${selected?.id}`, payload)
+          .then(() => {
+            Swal.fire({
+              title: "Registro actualizado correctamente",
+              icon: "success",
+            }).then(() => {
+              getData();
+              handleClean();
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: "Registro no actualizado",
+              icon: "error",
+            });
+          });
+      }
+    });
   };
 
   const handleDelete = () => {
-    axiosClient
-      .delete(`/role/${selected?.id}`)
-      .then(() => {
-        Swal.fire({
-          title: "Registro eliminado correctamente",
-          icon: "success",
-        }).then(() => {
-          getData();
-          handleClean();
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          title: "Registro no eliminado",
-          icon: "error",
-        });
-      });
+    Swal.fire({
+      title: "Seguro que quiere eliminar el resgistro?",
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      cancelButtonColor: "#dc3545",
+      confirmButtonText: "Si",
+      confirmButtonColor: "#28a745",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        axiosClient
+          .delete(`/role/${selected?.id}`)
+          .then(() => {
+            Swal.fire({
+              title: "Registro eliminado correctamente",
+              icon: "success",
+            }).then(() => {
+              getData();
+              handleClean();
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: "Registro no eliminado",
+              icon: "error",
+            });
+          });
+      }
+    });
   };
 
   return (
