@@ -10,7 +10,7 @@ import axiosClient from "../configuration/axiosClient";
 import CardForm from "../components/CardForm";
 import Table from "../components/Table";
 import Swal from "sweetalert2";
-import InputSelect from "../components/forms/inputSelect";
+import InputSelect from "../components/forms/InputSelect";
 
 const UserPage = () => {
   const [selected, setSelected] = useState(null);
