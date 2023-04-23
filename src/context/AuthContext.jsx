@@ -44,7 +44,12 @@ const AuthProvider = ({ children }) => {
     dispatch({ type: types.AUTH_LOGIN, payload: { user, role } });
   };
 
-  const logout = () => dispatch({ type: types.AUTH_LOGOUT });
+  const logout = () => {
+    if (localStorage.getItem("token")) localStorage.removeItem("token");
+    if (localStorage.getItem("user")) localStorage.removeItem("user");
+    if (localStorage.getItem("role")) localStorage.removeItem("role");
+    dispatch({ type: types.AUTH_LOGOUT });
+  };
 
   return (
     <AuthContext.Provider value={{ ...state, login, logout }}>
