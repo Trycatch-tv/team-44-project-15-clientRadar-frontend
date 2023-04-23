@@ -155,63 +155,81 @@ const RolePage = () => {
               touched={touched}
             />
 
-            {modulesData.map((m) => (
-              <div key={`card_form_module_${m}`} className="card mb-3">
-                <div className="card-body">
-                  <h5 className="card-title h6">{m.toUpperCase()}</h5>
-                  <div className="row">
-                    <div className="col-6">
-                      <InputSwitch
-                        label="Crear"
-                        id={`${m}_create`}
-                        values={values}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>
-                    <div className="col-6">
-                      <InputSwitch
-                        label="Ver"
-                        id={`${m}_view`}
-                        values={values}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>
-                    {m != "sell" && m != "purchase" ? (
-                      <React.Fragment>
-                        <div className="col-6">
-                          <InputSwitch
-                            label="Actualizar"
-                            id={`${m}_update`}
-                            values={values}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            errors={errors}
-                            touched={touched}
-                          />
+            <div className="accordion mb-3" id="accordionPanelModules">
+              {modulesData.map((mod) => (
+                <div key={`accordion_item_${mod}`} className="accordion-item">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target={`#panelStay-collapse-${mod}`}
+                      aria-expanded="false"
+                      aria-controls={`panelStay-collapse-${mod}`}
+                    >
+                      {mod.toUpperCase()}
+                    </button>
+                    <div
+                      id={`panelStay-collapse-${mod}`}
+                      className="accordion-collapse collapse"
+                    >
+                      <div className="accordion-body">
+                        <div className="row">
+                          <div className="col-6">
+                            <InputSwitch
+                              label="Crear"
+                              id={`${mod}_create`}
+                              values={values}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              errors={errors}
+                              touched={touched}
+                            />
+                          </div>
+                          <div className="col-6">
+                            <InputSwitch
+                              label="Ver"
+                              id={`${mod}_view`}
+                              values={values}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              errors={errors}
+                              touched={touched}
+                            />
+                          </div>
+                          {mod != "sell" && mod != "purchase" ? (
+                            <React.Fragment>
+                              <div className="col-6">
+                                <InputSwitch
+                                  label="Actualizar"
+                                  id={`${mod}_update`}
+                                  values={values}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  errors={errors}
+                                  touched={touched}
+                                />
+                              </div>
+                              <div className="col-6">
+                                <InputSwitch
+                                  label="Eliminar"
+                                  id={`${mod}_delete`}
+                                  values={values}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  errors={errors}
+                                  touched={touched}
+                                />
+                              </div>
+                            </React.Fragment>
+                          ) : null}
                         </div>
-                        <div className="col-6">
-                          <InputSwitch
-                            label="Eliminar"
-                            id={`${m}_delete`}
-                            values={values}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            errors={errors}
-                            touched={touched}
-                          />
-                        </div>
-                      </React.Fragment>
-                    ) : null}
-                  </div>
+                      </div>
+                    </div>
+                  </h2>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </CardForm>
         </div>
 

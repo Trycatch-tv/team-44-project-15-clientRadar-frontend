@@ -12,20 +12,19 @@ const InputSwitch = ({
   touched,
 }) => {
   return (
-    <div className="form-check form-switch">
+    <div className="form-check">
       <input
         className={`form-check-input ${
           touched[id] ? (errors[id] ? "is-invalid" : "is-valid") : null
         }`}
         type="checkbox"
-        role="switch"
         id={id}
         name={name ? name : id}
         checked={values[id]}
         onChange={onChange}
         onBlur={onBlur}
       />
-      <label className="form-check-label" htmlFor={id}>
+      <label className="form-check-label h6" htmlFor={id}>
         {label}
       </label>
     </div>
