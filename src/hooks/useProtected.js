@@ -8,19 +8,20 @@ import { AuthContext } from "../context/AuthContext";
 const useProtected = () => {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token") || null;
   if (!token) {
     navigate("/auth");
-  }
-  const decoded = jwtDecode(token);
-  if (decoded.exp) {
-    if (decoded?.exp && decoded.exp <= moment().unix()) {
+  } else {
+    const decoded = jwtDecode(token);
+    if (decoded?.exp) {
+      if (decoded?.exp && decoded.exp <= moment().unix()) {
+        logout();
+        navigate("/auth");
+      }
+    } else {
       logout();
       navigate("/auth");
     }
-  } else {
-    logout();
-    navigate("/auth");
   }
   return null;
 };

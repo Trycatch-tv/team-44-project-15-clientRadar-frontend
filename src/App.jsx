@@ -24,7 +24,8 @@ const App = () => {
             <Route index element={<Navigate to="/auth/login" />} />
             <Route path="login" element={<LoginPage />} />
           </Route>
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/404" element={<NotFoundPage />} />
+          <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       </BrowserRouter>
     </React.Fragment>
