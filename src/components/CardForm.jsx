@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CardForm = ({ title, onSubmit, children, onClean, selected }) => {
+const CardForm = ({
+  title,
+  onSubmit,
+  children,
+  onClean,
+  selected,
+  onDelete,
+}) => {
   return (
     <div className="card">
       <h2 className="card-header">{title}</h2>
@@ -31,7 +38,7 @@ const CardForm = ({ title, onSubmit, children, onClean, selected }) => {
           <div className="mb-3">
             <button
               type="button"
-              onClick={onClean}
+              onClick={onDelete}
               className="btn btn-danger"
               style={{ width: "100%" }}
             >
@@ -48,6 +55,7 @@ CardForm.propTypes = {
   title: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onClean: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   children: PropTypes.any,
 };
 

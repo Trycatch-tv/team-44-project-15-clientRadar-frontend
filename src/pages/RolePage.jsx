@@ -101,6 +101,27 @@ const RolePage = () => {
       });
   };
 
+  const handleDelete = () => {
+    axiosClient
+      .delete(`/role/${selected?.id}`)
+      .then(() => {
+        Swal.fire({
+          title: "Registro eliminado correctamente",
+          icon: "success",
+        }).then(() => {
+          getData();
+          handleClean();
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: "Registro no eliminado",
+          icon: "error",
+        });
+      });
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -113,6 +134,7 @@ const RolePage = () => {
             onSubmit={handleSubmit}
             onClean={handleClean}
             selected={selected}
+            onDelete={handleDelete}
           >
             <InputText
               label="Nombre"
