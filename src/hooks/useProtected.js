@@ -21,7 +21,6 @@ const useProtected = () => {
   } else {
     logout();
     navigate("/auth");
-    navigate("/auth");
   }
   return null;
 };
