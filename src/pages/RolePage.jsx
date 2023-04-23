@@ -11,6 +11,7 @@ import axiosClient from "../configuration/axiosClient";
 import modulesData from "../data/modules.data";
 import CardForm from "../components/CardForm";
 import Table from "../components/Table";
+import Swal from "sweetalert2";
 
 const RolePage = () => {
   const [selected, setSelected] = useState(null);
@@ -43,7 +44,11 @@ const RolePage = () => {
   } = useFormik({
     ...roleFormValidation,
     onSubmit: (values) => {
-      console.log(values);
+      if (selected) {
+        handleUpdate(values);
+      } else {
+        handleCreate(values);
+      }
     },
   });
 
@@ -52,6 +57,48 @@ const RolePage = () => {
   const handleClean = () => {
     setSelected(null);
     handleReset();
+  };
+
+  const handleCreate = (payload) => {
+    axiosClient
+      .post(`/role`, payload)
+      .then(() => {
+        Swal.fire({
+          title: "Registro agregado correctamente",
+          icon: "success",
+        }).then(() => {
+          getData();
+          handleClean();
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: "Registro no agregado",
+          icon: "error",
+        });
+      });
+  };
+
+  const handleUpdate = (payload) => {
+    axiosClient
+      .put(`/role/${selected?.id}`, payload)
+      .then(() => {
+        Swal.fire({
+          title: "Registro actualizado correctamente",
+          icon: "success",
+        }).then(() => {
+          getData();
+          handleClean();
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: "Registro no actualizado",
+          icon: "error",
+        });
+      });
   };
 
   return (
