@@ -13,7 +13,8 @@ import LoginPage from "./pages/LoginPage";
 const App = () => {
   return (
     <React.Fragment>
-      <BrowserRouter basename="/team-44-project-15-clientRadar-frontend">
+      {/* <BrowserRouter basename="/team-44-project-15-clientRadar-frontend"> */}
+      <BrowserRouter>
         <Routes>
           <Route path="/app" element={<AppLayout />}>
             <Route index element={<Navigate to="/app/role" />} />

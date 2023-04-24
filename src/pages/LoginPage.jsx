@@ -7,6 +7,7 @@ import axiosClient from "../configuration/axiosClient";
 import InputText from "../components/forms/InputText";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const LoginPage = () => {
   const { login } = useContext(AuthContext);
@@ -37,6 +38,10 @@ const LoginPage = () => {
     });
   return (
     <React.Fragment>
+      <Helmet>
+        <title>LOGIN</title>
+      </Helmet>
+
       <div className="card" style={{ minWidth: 400 }}>
         <div className="card-header text-center" data-testid="test-title">
           Inicio de sesión
