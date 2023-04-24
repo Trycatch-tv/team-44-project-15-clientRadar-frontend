@@ -16,13 +16,18 @@ pipeline {
     }
     stage('Run build') {
       steps {
-        sh 'ls -a'
+        sh 'npm run build'
       }
     }
-    // stage('Publish') {
-    //   steps {
-    //     sh 'ls -la'
-    //   }
-    // }
+    stage('Publish') {
+      steps {
+        sh 'cp -rf dist/* /usr/local/lsws/radar-front.devcol.store/html'
+      }
+    }
+    stage('Validate') {
+      steps {
+        sh 'ls /usr/local/lsws/radar-front.devcol.store/html/'
+      }
+    }
   }
 }
