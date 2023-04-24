@@ -23,6 +23,6 @@ pipeline {
     //   steps {
     //     sh 'ls -la'
     //   }
-    }
+    // }
   }
 }
