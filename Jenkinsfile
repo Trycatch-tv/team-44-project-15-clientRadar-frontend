@@ -5,30 +5,29 @@ pipeline {
   }
 
   options {
-    timeout(time: 30, unit: 'MINUTES')
+    timeout(time: 10, unit: 'MINUTES')
   }
 
   stages {
-    // stage('Install dependencies') {
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+    // stage('Build') {
     //   steps {
     //     sh 'npm install'
     //   }
+    // }  
+    // stage('Publish') {
+    //   steps {
+    //     sh 'cp -rf dist/* /usr/local/lsws/radar-front.devcol.store/html'
+    //   }
     // }
-    stage('Build') {
-      steps {
-        sh 'npm install'
-         sh 'npm run build'
-      }
-    }  
-    stage('Publish') {
-      steps {
-        sh 'cp -rf dist/* /usr/local/lsws/radar-front.devcol.store/html'
-      }
-    }
-    stage('Validate') {
-      steps {
-        sh 'ls /usr/local/lsws/radar-front.devcol.store/html/'
-      }
-    }
+    // stage('Validate') {
+    //   steps {
+    //     sh 'ls /usr/local/lsws/radar-front.devcol.store/html/'
+    //   }
+    // }
   }
 }
