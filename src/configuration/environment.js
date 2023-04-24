@@ -1,6 +1,6 @@
 const environment = {
   server: {
-    baseUrl: "http://127.0.0.1:8000",
+    baseUrl: "https://radar-back.devcol.store",
   },
 };
 
