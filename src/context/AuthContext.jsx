@@ -3,7 +3,7 @@ import types from "./type";
 
 export const AuthContext = createContext();
 
-const AuthReducer = (state, action) => {
+export const AuthReducer = (state, action) => {
   switch (action.type) {
     case types.AUTH_LOGIN:
       return {
@@ -13,14 +13,14 @@ const AuthReducer = (state, action) => {
         role: action.payload.role,
       };
     case types.AUTH_LOGOUT:
-      return { ...state, auth: false, user: {} };
+      return { ...state, auth: false, user: {}, role: {} };
 
     default:
       return state;
   }
 };
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const initialState = {
     auth: !!localStorage.getItem("token"),
     user: !!localStorage.getItem("user")
