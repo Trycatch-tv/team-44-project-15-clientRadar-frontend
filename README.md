@@ -2,7 +2,7 @@
 
 
 ## PREREQUISITES
-1. [NodeJs](https://nodejs.org/es)
+1. [Node Js](https://nodejs.org/es)
 1. [Visual studio code](https://code.visualstudio.com/download) recommended
 
 
