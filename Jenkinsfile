@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Run build') {
       steps {
-        sh 'npm run build'
+        sh 'ls -a'
       }
     }
     stage('Publish') {
