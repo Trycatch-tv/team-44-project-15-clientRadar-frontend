@@ -9,16 +9,17 @@ pipeline {
   }
 
   stages {
-    stage('Install dependencies') {
+    // stage('Install dependencies') {
+    //   steps {
+    //     sh 'npm install'
+    //   }
+    // }
+    stage('Build') {
       steps {
         sh 'npm install'
+         sh 'npm run build'
       }
-    }
-    stage('Run build') {
-      steps {
-        sh 'npm run build && ls'
-      }
-    }
+    }  
     stage('Publish') {
       steps {
         sh 'cp -rf dist/* /usr/local/lsws/radar-front.devcol.store/html'
