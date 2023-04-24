@@ -38,7 +38,9 @@ const LoginPage = () => {
   return (
     <React.Fragment>
       <div className="card" style={{ minWidth: 400 }}>
-        <div className="card-header text-center">Inicio de sesión</div>
+        <div className="card-header text-center" data-testid="test-title">
+          Inicio de sesión
+        </div>
         <form className="card-body" onSubmit={handleSubmit}>
           <InputText
             type="email"
