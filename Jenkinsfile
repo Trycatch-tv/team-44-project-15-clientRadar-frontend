@@ -21,13 +21,13 @@ pipeline {
     }  
     stage('Build Docker Image') {
       steps {
-        sh 'docker build . -t cascorp/radar-client:0.0.1'
+        sh 'docker build . -t cascorp/radar-client:0.0.${BUILD_NUMBER}'
       }
     }
-    stage('Publish') {
-      steps {
-        sh 'docker push cascorp/radar-client:0.0.1'
-      }
-    }
+    // stage('Publish') {
+    //   steps {
+    //     sh 'docker push cascorp/radar-client:0.0.1'
+    //   }
+    // }
   }
 }
