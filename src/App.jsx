@@ -9,6 +9,7 @@ import RolePage from "./pages/RolePage";
 import UserPage from "./pages/UserPage";
 
 import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="login" element={<LoginPage />} />
           </Route>
           <Route path="/404" element={<NotFoundPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       </BrowserRouter>
