@@ -9,25 +9,25 @@ pipeline {
   }
 
   stages {
-    stage('Install dependencies') {
+    stage('Installations') {
       steps {
         sh 'npm install'
       }
     }
-    // stage('Build') {
-    //   steps {
-    //     sh 'npm install'
-    //   }
-    // }  
-    // stage('Publish') {
-    //   steps {
-    //     sh 'cp -rf dist/* /usr/local/lsws/radar-front.devcol.store/html'
-    //   }
-    // }
-    // stage('Validate') {
-    //   steps {
-    //     sh 'ls /usr/local/lsws/radar-front.devcol.store/html/'
-    //   }
-    // }
+    stage('Testing') {
+      steps {
+        sh 'npm test'
+      }
+    }  
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build . -t cascorp/radar-client:0.0.1'
+      }
+    }
+    stage('Publish') {
+      steps {
+        sh 'docker push cascorp/radar-client:0.0.1'
+      }
+    }
   }
 }

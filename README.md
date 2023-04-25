@@ -20,3 +20,7 @@
     ```bash
         npm run dev
     ```
+## DOCKER 
+```bash
+docker run --name radar-client -d -p 80:80 cascorp/radar-client:0.0.1
+```
