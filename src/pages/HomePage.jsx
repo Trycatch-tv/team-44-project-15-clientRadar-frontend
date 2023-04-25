@@ -30,7 +30,7 @@ const HomePage = () => {
         <title>CLIENT RADAR</title>
       </Helmet>
       <Navbar />
-      <div className="container">
+      <div className="container-fluid">
         <div className="row mt-3">
           {developers.map((dev) => (
             <div key={`card_${dev.fullname}`} className="col-md-4 mx-auto">
