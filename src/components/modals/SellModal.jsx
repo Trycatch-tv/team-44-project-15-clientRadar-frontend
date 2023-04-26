@@ -1,7 +1,25 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
+
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const SellModal = ({ sell }) => {
+  const handlePrint = () => {
+    let quotes = document.getElementById("dialogSellPrint");
+    html2canvas(quotes).then(function (canvas) {
+      //   document.body.appendChild(canvas);
+      const imgData = canvas.toDataURL("image/png");
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const heightLeft = imgHeight;
+      const position = 0;
+      const doc = new jsPDF("p", "mm", "a4");
+      doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      doc.save("Factura.pdf");
+    });
+  };
   return (
     <React.Fragment>
       <div
@@ -25,7 +43,7 @@ const SellModal = ({ sell }) => {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="card">
+              <div className="card" id="dialogSellPrint">
                 <div className="card-body">
                   <h1>CLIENT RADAR</h1>
                   <h2>Factura: 1 </h2>
@@ -100,7 +118,9 @@ const SellModal = ({ sell }) => {
               </div>
             </div>
             <div className="modal-footer">
-              <button className="btn btn-success">Imprimir</button>
+              <button className="btn btn-success" onClick={handlePrint}>
+                Imprimir
+              </button>
             </div>
           </div>
         </div>
