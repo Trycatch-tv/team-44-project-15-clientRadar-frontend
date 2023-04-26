@@ -12,9 +12,9 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-  customer: Yup.string().required(),
-  subtotal: Yup.number().required(),
-  taxes: Yup.number(),
+  customer: Yup.string().required().min(1),
+  subtotal: Yup.number().required().min(1),
+  taxes: Yup.number().min(1),
   obsevation: Yup.string(),
   created_at: Yup.string().required(),
   details: Yup.array().of(

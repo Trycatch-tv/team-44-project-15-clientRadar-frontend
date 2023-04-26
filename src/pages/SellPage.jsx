@@ -10,6 +10,7 @@ import mockProduct from "../mock/mockProduct";
 const SellPage = () => {
   const [customers, setCustomers] = useState(mockCustomer);
   const [products, setProducts] = useState(mockProduct);
+
   const {
     values,
     handleChange,
@@ -34,6 +35,7 @@ const SellPage = () => {
       taxes: product.taxes,
     };
     let existe = data.filter((d) => d.product == product.id);
+    let tmp = [];
     if (existe.length) {
       data.forEach((d, index) => {
         if (d.product == product.id) {
@@ -42,12 +44,12 @@ const SellPage = () => {
       });
 
       setFieldValue("details", [...data]);
+      tmp = [...data];
     } else {
       setFieldValue("details", [...data, payload]);
+      tmp = [...data, payload];
     }
-
-
-    
+    handleSetTotals(tmp);
   };
 
   const getName = (id) => {
@@ -59,115 +61,139 @@ const SellPage = () => {
     return name;
   };
 
+  const handleSetTotals = (data) => {
+    let subtotal = 0;
+    let taxes = 0;
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      subtotal += element.count * element.price;
+      taxes += element.count * element.price * element.taxes;
+    }
+
+    setFieldValue("taxes", taxes);
+    setFieldValue("subtotal", subtotal);
+  };
+
   return (
     <React.Fragment>
       <Helmet>
         <title>SELL</title>
       </Helmet>
       <div className="row">
-        <div className="col-md-6">
-          <InputSelect
-            data={customers}
-            label="Cliente"
-            id="customer"
-            values={values}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            errors={errors}
-            touched={touched}
-          />
-
-          <InputText
-            type="date"
-            label="Fecha"
-            id="created_at"
-            values={values}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            errors={errors}
-            touched={touched}
-          />
-          <InputText
-            type="number"
-            label="Subtotal"
-            id="subtotal"
-            values={values}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            errors={errors}
-            touched={touched}
-          />
-          <InputText
-            type="number"
-            label="Impuestos"
-            id="taxes"
-            values={values}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            errors={errors}
-            touched={touched}
-          />
-
-          <div className="card">
+        <div className="col-md-6 mt-3">
+          <form onSubmit={handleSubmit} className="card">
             <div className="card-body">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Impuestos</th>
-                    <th>Total</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map((product) => (
-                    <tr key={`product_${product.id}`}>
-                      <td>{product.name}</td>
-                      <td>{product.price}</td>
-                      <td>{product.price * product.taxes}</td>
-                      <td>{product.price + product.price * product.taxes}</td>
-                      <td>
-                        <button
-                          className="btn btn-success"
-                          onClick={() => handleSelectProduct(product)}
-                        >
-                          Agregar
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <InputSelect
+                data={customers}
+                label="Cliente"
+                id="customer"
+                values={values}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errors={errors}
+                touched={touched}
+              />
+
+              <div className="card mb-3">
+                <div
+                  className="card-body overflow-auto"
+                  style={{ maxHeight: 500 }}
+                >
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Impuestos</th>
+                        <th>Total</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {products.map((product) => (
+                        <tr key={`product_${product.id}`}>
+                          <td>{product.name}</td>
+                          <td>{product.price}</td>
+                          <td>{product.price * product.taxes}</td>
+                          <td>
+                            {product.price + product.price * product.taxes}
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              className="btn btn-success"
+                              onClick={() => handleSelectProduct(product)}
+                            >
+                              <i className="fa-solid fa-plus" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <button className="btn btn-primary" style={{ width: "100%" }}>
+                  Generar
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
-        <div className="col-md-6">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Impuestos</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {values?.details.map((detail, index) => (
-                <tr key={`detail_${index}`}>
-                  <td>{getName(detail.product)}</td>
-                  <td>{detail.price}</td>
-                  <td>{detail.count}</td>
-                  <td>{detail.price * detail.count * detail.taxes}</td>
-                  <td>
-                    {detail.price * detail.count +
-                      detail.price * detail.count * detail.taxes}
-                  </td>
+        <div className="col-md-6 mt-3">
+          <div className="table-responsive">
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Impuestos</th>
+                  <th>Total</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {values?.details.map((detail, index) => (
+                  <tr key={`detail_${index}`}>
+                    <td>{getName(detail.product)}</td>
+                    <td>{detail.price}</td>
+                    <td>{detail.count}</td>
+                    <td>{detail.price * detail.count * detail.taxes}</td>
+                    <td>
+                      {detail.price * detail.count +
+                        detail.price * detail.count * detail.taxes}
+                    </td>
+                    <td>
+                      <button className="btn btn-danger">
+                        <i className="fa-solid fa-trash" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                <tr>
+                  <td className="" colSpan={4}>
+                    Subtotal
+                  </td>
+                  <td colSpan={2}>${values.subtotal}</td>
+                </tr>
+                <tr>
+                  <td className="" colSpan={4}>
+                    Impuestos
+                  </td>
+                  <td colSpan={2}>${values.taxes}</td>
+                </tr>
+                <tr>
+                  <td className="" colSpan={4}>
+                    Total
+                  </td>
+                  <td colSpan={2}>${values.subtotal + values.taxes}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </React.Fragment>
