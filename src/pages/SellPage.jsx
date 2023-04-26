@@ -2,14 +2,15 @@ import { Helmet } from "react-helmet-async";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import sellFormValidation from "../validations/sell.validation";
-import InputText from "../components/forms/InputText";
 import InputSelect from "../components/forms/InputSelect";
 import mockCustomer from "../mock/mockCustomer";
 import mockProduct from "../mock/mockProduct";
+import SellModal from "../components/modals/SellModal";
 
 const SellPage = () => {
   const [customers, setCustomers] = useState(mockCustomer);
   const [products, setProducts] = useState(mockProduct);
+  const [selected, setSelected] = useState({});
 
   const {
     values,
@@ -196,6 +197,15 @@ const SellPage = () => {
           </div>
         </div>
       </div>
+      <button
+        type="button"
+        className="btn btn-primary hiden"
+        data-bs-toggle="modal"
+        data-bs-target="#sellModal"
+      >
+        open modal
+      </button>
+      <SellModal sell={selected} />
     </React.Fragment>
   );
 };
