@@ -10,6 +10,7 @@ import UserPage from "./pages/UserPage";
 
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
+import SellPage from "./pages/SellPage";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route index element={<Navigate to="/app/role" />} />
             <Route path="role" element={<RolePage />} />
             <Route path="user" element={<UserPage />} />
+            <Route path="sell" element={<SellPage />} />
           </Route>
           <Route path="/auth" element={<AuthLayout />}>
             <Route index element={<Navigate to="/auth/login" />} />
